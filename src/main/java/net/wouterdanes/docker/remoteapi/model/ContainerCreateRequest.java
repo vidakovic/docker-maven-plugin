@@ -17,13 +17,9 @@
 
 package net.wouterdanes.docker.remoteapi.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import java.util.*;
 
 /**
  * See <a href="http://docs.docker.io/reference/api/docker_remote_api_v1.10/#21-containers">

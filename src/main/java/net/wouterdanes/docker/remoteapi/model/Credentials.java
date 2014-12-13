@@ -17,7 +17,7 @@
 
 package net.wouterdanes.docker.remoteapi.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
