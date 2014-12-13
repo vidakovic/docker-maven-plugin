@@ -34,6 +34,7 @@ public class DockerProviderSupplier implements Supplier<DockerProvider> {
     static {
         providers.put("remote", RemoteDockerProvider.class);
         providers.put("local", LocalDockerProvider.class);
+        providers.put("spotify", SpotifyDockerProvider.class);
     }
 
     public DockerProviderSupplier(final String providerName) {
