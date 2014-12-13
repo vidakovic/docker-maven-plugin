@@ -90,9 +90,11 @@ public class SpotifyDockerProvider implements DockerProvider {
             // info.config().exposedPorts();
 
             for(Map.Entry<String, List<PortBinding>> port : info.networkSettings().ports().entrySet()) {
-                for(PortBinding portBinding : port.getValue()) {
-                    // TODO: not sure if this is correct
-                    ports.add(new ExposedPort(port.getKey(), Integer.valueOf(portBinding.hostPort()), portBinding.hostIp()));
+                if(port!=null && port.getValue()!=null) {
+                    for(PortBinding portBinding : port.getValue()) {
+                        // TODO: not sure if this is correct
+                        ports.add(new ExposedPort(port.getKey(), Integer.valueOf(portBinding.hostPort()), portBinding.hostIp()));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -341,11 +343,13 @@ public class SpotifyDockerProvider implements DockerProvider {
             ports = new HashMap<>();
 
             for(Map.Entry<String, List<PortBinding>> entry: network.ports().entrySet()) {
-                List<PortMappingInfo> portInfos = new ArrayList<>();
-                for(PortBinding binding : entry.getValue()) {
-                    portInfos.add(new PortMappingInfoWrapper(binding));
+                if(entry!=null && entry.getValue()!=null) {
+                    List<PortMappingInfo> portInfos = new ArrayList<>();
+                    for(PortBinding binding : entry.getValue()) {
+                        portInfos.add(new PortMappingInfoWrapper(binding));
+                    }
+                    ports.put(entry.getKey(), portInfos);
                 }
-                ports.put(entry.getKey(), portInfos);
             }
         }
 
