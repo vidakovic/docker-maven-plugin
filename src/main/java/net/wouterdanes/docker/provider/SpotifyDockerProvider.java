@@ -34,12 +34,10 @@ public class SpotifyDockerProvider implements DockerProvider {
         this.credentials = credentials;
 
         try {
+            // TODO: configuration connection pool and timeouts?
             DefaultDockerClient.Builder builder = DefaultDockerClient.fromEnv().readTimeoutMillis(60000);
 
-            // TODO: configuration connection pool and timeouts?
             if(getDockerHostFromEnvironment().isPresent()) {
-                log.info("Using docker host: " + getDockerHostFromEnvironment().get());
-                log.info("Using docker host: " + getDockerPortFromEnvironment());
                 // TODO: configure protocol (http, https)?
                 builder = builder.uri("http://" + getDockerHostFromEnvironment().get() + ":" + getDockerPortFromEnvironment());
             }
