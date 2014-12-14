@@ -52,7 +52,33 @@ public class SpotifyDockerProvider implements DockerProvider {
     public ContainerInspectionResult startContainer(ContainerStartConfiguration configuration) {
         try {
             ContainerConfig config = ContainerConfig.builder().hostname(configuration.getHostname()).image(configuration.getImage()).build();
-            ContainerCreation creation = docker.createContainer(config);
+
+            ContainerCreation creation = null;
+
+            if(StringUtils.isEmpty(configuration.getName())) {
+                creation = docker.createContainer(config);
+            } else {
+                /**
+                 *
+                 * TODO: needs an additional parameter "deleteConflicting" or similar in ContainerStartConfiguration
+                 *
+                if(configuration.isDeleteConflicting()) {
+                    for(Container container : docker.listContainers(DockerClient.ListContainersParam.allContainers())) {
+                        if(container.names()!=null && !container.names().isEmpty()) {
+                            for(String name : container.names()) {
+                                // NOTE: starts with "/"
+                                if(name.endsWith(configuration.getName())) {
+                                    stopContainer(container.id());
+                                    deleteContainer(container.id());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                 */
+                creation = docker.createContainer(config, configuration.getName());
+            }
 
             docker.startContainer(creation.id());
 

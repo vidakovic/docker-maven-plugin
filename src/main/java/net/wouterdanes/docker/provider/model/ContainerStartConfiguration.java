@@ -35,6 +35,7 @@ public class ContainerStartConfiguration {
 
     private String image;
     private String id;
+    private String name;
     private List<ContainerLink> links;
     private Map<String, String> env;
     
@@ -66,6 +67,11 @@ public class ContainerStartConfiguration {
 
     public ContainerStartConfiguration withId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public ContainerStartConfiguration withName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -107,6 +113,10 @@ public class ContainerStartConfiguration {
 
     public String getId() {
         return id != null ? id : image;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<ContainerLink> getLinks() {
